@@ -1,0 +1,198 @@
+<%- include ../header.ejs %>
+    <div class="products-wrapper">
+        <div class="container-fluid">
+            <div class="container">
+                <nav aria-label="breadcrumb ">
+                    <ol class="breadcrumb bg-white px-0">
+                        <% results.forEach(element => { %>
+                            <% var title =element.primary_category_id.split('_').join(' ');
+                                 var title =title[0].toUpperCase() +title.slice(1) %>
+                                <% if(element.primary_category_id=='mens-clothing-suits'|| element.primary_category_id=='mens-clothing-jackets'
+                                || element.primary_category_id=='mens-clothing-dress-shirts'  || element.primary_category_id=='mens-clothing-shorts'
+                                || element.primary_category_id=='mens-clothing-pants') {%>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="mens/:mens">
+                                    Mens
+                                </a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/mens-clothing/:mens-clothing">
+                                    Clothing
+                                    </a>
+                                    </li>
+                                    <%}else if (element.primary_category_id=='mens-accessories-luggage'|| element.primary_category_id=='mens-accessories-ties'
+                                || element.primary_category_id=='mens-accessories-gloves'){ %>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <a href="/">Home</a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <a href="mens/:mens">
+                                    Mens
+                                </a>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <a href="/mens-accessories/:mens-accessories">
+                                    Accessories
+                                    </a>
+                                        </li>
+                                        <% }else if (element.primary_category_id=='womens-accessories-shoes'|| element.primary_category_id=='womens-accessories-scarves'){ %>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                <a href="/">Home</a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                <a href="/womens/:womens">
+                                    Womens
+                                </a>
+                                            </li>
+                                            <li class="breadcrumb-item active" aria-current="page">
+                                                <a href="/womens-accessories/:womens-accessories">
+                                    Accessories
+                                    </a>
+                                            </li>
+                                            <%}else if (element.primary_category_id=='womens-jewelry-necklaces'|| element.primary_category_id=='womens-jewelry-earrings'
+                                || element.primary_category_id=='womens-jewlery-bracelets'){ %>
+                                                <li class="breadcrumb-item active" aria-current="page">
+                                                    <a href="/">Home</a>
+                                                </li>
+                                                <li class="breadcrumb-item active" aria-current="page">
+                                                    <a href="/womens/:womens">
+                                    Womens
+                                </a>
+                                                </li>
+                                                <li class="breadcrumb-item active" aria-current="page">
+                                                    <a href="/womens-jewelry/:womens-jewelry">
+                                    Accessories
+                                    </a>
+                                                </li>
+                                                <%}else if (element.primary_category_id=='womens-clothing-feeling-red'|| element.primary_category_id=='womens-clothing-jackets'
+                                || element.primary_category_id=='womens-clothing-bottoms'|| element.primary_category_id=='womens-clothing-dresses'
+                                || element.primary_category_id=='womens-clothing-tops' || element.primary_category_id=='womens-outfits'
+                                || element.primary_category_id=='womens-clothing-tops' ){ %>
+                                                    <li class="breadcrumb-item active" aria-current="page">
+                                                        <a href="/">Home</a>
+                                                    </li>
+                                                    <li class="breadcrumb-item active" aria-current="page">
+                                                        <a href="/womens/:womens">
+                                    Womens
+                                </a>
+                                                    </li>
+                                                    <li class="breadcrumb-item active" aria-current="page">
+                                                        <a href="/womens-clothing/:womens-clothing">
+                                    Clothing
+                                    </a>
+                                                    </li>
+                                                    <%}%>%>
+                                                        <li class="breadcrumb-item active" aria-current="page">
+                                                            <a href="/<%=element.primary_category_id%>/:<%=element.primary_category_id%>">
+                                                                <%=title%>
+                                                            </a>
+                                                        </li>
+                                                        <li class="breadcrumb-item active" aria-current="page">
+                                                            <a href="">
+                                                                <%=element.name%>
+                                                            </a>
+                                                        </li>
+                                                        <% }); %>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="container-fluid">
+            <div class="container">
+                <div class="row pt-5 h-100">
+                    <div class="col-6">
+                        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                <% let counter=0; %>
+                                    <% results.forEach((test) => { %>
+                                        <% test.image_groups.forEach(element => { %>
+                                            <% if(element.view_type=="large"){ %>
+                                                <% element.images.forEach(el => { %>
+                                                    <% if(counter==0){ %>
+                                                        <div class="carousel-item active">
+                                                            <% counter++ %>
+                                                                <% } else { %>
+                                                                    <div class="carousel-item">
+                                                                        <% } %>
+                                                                            <img src="/images/<%= el.link%>" class="d-block w-100" alt="<%=el.alt%>">
+                                                                            <div class="carousel-caption d-none d-md-block text-dark">
+                                                                                <p class="text-center">
+                                                                                    <%=el.title%>
+                                                                                </p>
+                                                                            </div>
+                                                                    </div>
+                                                                    <%  });%>
+                                                                        <% }%>
+                                                                            <% });%>
+                                                                                <% }); %>
+                                                        </div>
+                                                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Previous</span>
+                                                        </a>
+                                                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="sr-only">Next</span>
+                                                        </a>
+                            </div>
+                        </div>
+                        <div class="col-6 text-center ">
+                            <% results.forEach(body => { %>
+                                <h3 class="h-25">
+                                    <%=body.name%>
+                                </h3>
+                                <p class="h-50">
+                                    <%=body.long_description%>
+                                </p>
+                                <%results.forEach(element => {%>
+                                    <form action="/products/:<%=element.id%>" method="POST">
+                                        <%  });%>
+                                            <div class="row">
+                                                <% body.variation_attributes.forEach(el => { %>
+                                                    <div class="col-4">
+                                                        <label for="<%=el.id%>"><%=el.id%></label>
+
+                                                        <select name="<%=el.id%>" id="<%=el.id%>" onchange="this.form.submit()">
+                                                            <%  el.values.forEach(e => { %>
+                                            <% if(filterValues != null && filterValues[el.id]==e.value){%> 
+                                                <option value="<%=e.value%>" selected><%=e.name%></option>          
+                                                <%}}); %>     
+                                          <%  el.values.forEach(e => { %>
+                                            <% if(filterValues != null && e.orderable==true && filterValues[el.id]!=e.value){%> 
+                                                <option value="<%=e.value%>"><%=e.name%></option>          
+                                                <%}else { %>  
+                                                    <option value="<%=e.value%>"><%=e.name%></option>          
+                                                       <% } %>
+                                         <% }); %>
+                                        </select>
+                                                    </div>
+                                                    <%  });%>
+                                            </div>
+                                    </form>
+                                    <p>
+                                        <%=filters%>
+                                    </p>
+                                    <div class="row">
+                                        <div class="col">
+                                            <%= body.price %>
+                                                <%= body.currency  %>
+                                        </div>
+                                        <div class="col d-flex justify-content-end">
+                                            <% if(body.orderable==true) { %>
+                                                <a href="" class="btn btn-primary">Buy now</a>
+                                                <% } else {%>
+                                                    <a href="" class="btn btn-primary" disabled>Buy now</a>
+                                                    <% } %>
+                                        </div>
+                                    </div>
+                                    <% }); %>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <%- include ../footer.ejs %>

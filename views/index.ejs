@@ -1,0 +1,33 @@
+<%- include header.ejs %>
+
+    <div class="index-wrapper">
+        <div class="container-fluid">
+            <div class='container px-0 '>
+                <nav aria-label="breadcrumb ">
+                    <ol class="breadcrumb bg-white px-0">
+                        <li class="breadcrumb-item active" aria-current="page">Home</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div class="container-fluid">
+            <div class='container'>
+                <% results.forEach((test) => { %>
+                    <div class="card mb-3 border-dark rounded-lg">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <%= test.page_title%>
+                            </h5>
+                            <p class="card-text">
+                                <%= test.page_description %>
+                            </p>
+                            <a href="<%= test.id%>/:<%= test.id%>" class="btn btn-primary">View more</a>
+                        </div>
+                    </div>
+                    <%});%>
+            </div>
+        </div>
+    </div>
+
+    <%- include footer.ejs %>
