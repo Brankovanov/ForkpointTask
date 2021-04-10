@@ -4,34 +4,28 @@
             <div class='container px-0 '>
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb bg-white px-0">
-                        <% results.forEach((test) => {                      
-                            if(test.parent_category_id=="root" ){ %>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                <a href="/">Home</a>
-                            </li>
-                            <li class="breadcrumb-item active" aria-current="page">
-                                <a href="/<%= test.id%>/:<%= test.id%>">
-                                    <%= test.name%>
-                                </a>
-                            </li>
-                            <%}else if(test.parent_category_id==="womens" || test.parent_category_id==="mens"){
-                                var capitalized = test.parent_category_id[0].toUpperCase() +test.parent_category_id.slice(1);%>
-
+                        <% results.forEach((test) => {             %>
+                            <% if(test.parent_category_id=="root" ){ %>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     <a href="/">Home</a>
                                 </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    <a href="/<%=test.parent_category_id%>/:<%=test.parent_category_id%>">
-                                        <%=capitalized%>
-                                    </a>
-                                </li>
-                                <li class="breadcrumb-item active" aria-current="page">
-                                    <a href="/<%= test.id%>/:<%= test.id%>">
-                                        <%= test.name%>
-                                    </a>
-                                </li>
-                                <%}
-                            });%>
+                                <% } else {%>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/">Home</a>
+                                    </li>
+                                    <li class="breadcrumb-item active" aria-current="page">
+                                        <a href="/categories/:<%=test.parent_category_id%>">
+                                            <% let name = test.parent_category_id.charAt(0).toUpperCase() + test.parent_category_id.slice(1) %>
+                                                <%=name%>
+                                        </a>
+                                    </li>
+                                    <%  }%>
+                                        <li class="breadcrumb-item active" aria-current="page">
+                                            <a href="/categories/:<%=test.id%>">
+                                                <%=test.name%>
+                                            </a>
+                                        </li>
+                                        <% }); %>
                     </ol>
                 </nav>
             </div>
@@ -67,7 +61,12 @@
                                         <p class="card-text">
                                             <%= category.page_description %>
                                         </p>
-                                        <a href="/<%= category.id%>/:<%= category.id%>" class="btn btn-primary">View more</a>
+                                        <%- console.log(category.hasOwnProperty('categories')) %>
+                                            <% if(category.hasOwnProperty('categories')) { %>
+                                                <a href="/categories/:<%= category.id%>" class="btn btn-primary">View more</a>
+                                                <% }else {%>
+                                                    <a href="/subcategories/:<%= category.id%>" class="btn btn-primary">View more</a>
+                                                    <%}%>
                                     </div>
                         </div>
                         <%});%>

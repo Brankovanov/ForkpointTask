@@ -6,6 +6,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
 const session = require('express-session');
+const app = express();
 
 const MongoClient = require('mongodb').MongoClient;
 const assert = require('assert');
@@ -19,7 +20,8 @@ client.connect((err) => {
     assert.equal(null, err);
     console.log(`Connected successfully to ${dbName}`);
     const db = client.db(dbName);
-    client.close();
+    app.locals.collection = db;
+    //client.close();
 });
 
 const routes = {
@@ -30,7 +32,7 @@ const routes = {
     productsFilter: require('./routes/productsFilter')
 };
 
-const app = express();
+
 
 // All environments
 app.set('port', 1666);
@@ -60,36 +62,9 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 
 // App routes
 app.get('/', routes.index);
-app.get('/mens/:id', routes.categories);
-app.get('/mens-clothing/:id', routes.categories);
-app.get('/mens-clothing-suits/:id', routes.subcategories);
-app.get('/mens-clothing-jackets/:id', routes.subcategories);
-app.get('/mens-clothing-dress-shirts/:id', routes.subcategories);
-app.get('/mens-clothing-shorts/:id', routes.subcategories);
-app.get('/mens-clothing-pants/:id', routes.subcategories);
-app.get('/mens-accessories/:id', routes.categories);
-app.get('/mens-accessories-luggage/:id', routes.subcategories);
-app.get('/mens-accessories-gloves/:id', routes.subcategories);
-app.get('/mens-accessories-ties/:id', routes.subcategories);
-app.get('/womens/:id', routes.categories);
-app.get('/womens-clothing/:id', routes.categories);
-app.get('/womens-outfits/:id', routes.subcategories);
-app.get('/womens-clothing-tops/:id', routes.subcategories);
-app.get('/womens-clothing-dresses/:id', routes.subcategories);
-app.get('/womens-clothing-bottoms/:id', routes.subcategories);
-app.get('/womens-clothing-jackets/:id', routes.subcategories);
-app.get('/womens-clothing-feeling-red/:id', routes.subcategories);
-app.get('/womens-jewelry/:id', routes.categories);
-app.get('/womens-jewelry-earrings/:id', routes.subcategories);
-app.get('/womens-jewlery-bracelets/:id', routes.subcategories);
-app.get('/womens-jewelry-necklaces/:id', routes.subcategories);
-app.get('/womens-accessories/:id', routes.categories);
-app.get('/womens-accessories-scarves/:id', routes.subcategories);
-app.get('/womens-accessories-shoes/:id', routes.subcategories);
-app.get('/categories', routes.categories);
-app.get('/subcategories', routes.subcategories);
+app.get('/categories/:id', routes.categories);
+app.get('/subcategories/:id', routes.subcategories);
 app.get('/products/:id', routes.products);
-
 app.post('/products/:id', routes.productsFilter);
 
 // Run server

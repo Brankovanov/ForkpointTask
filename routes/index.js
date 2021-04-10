@@ -1,20 +1,12 @@
-const { MongoClient } = require('mongodb');
-
-const resultArr = [];
-
-MongoClient.connect('mongodb://localhost:27017/onlineShop', (err, client) => {
-    if (err) throw err;
-    const db = client.db('onlineShop');
-    const c = db.collection('categories').find({}, { categories: 0 });
-    c.forEach((doc, err) => {
+var resultArr = [];
+module.exports = function routeIndex(req, res) {
+    const db = req.app.locals.collection;
+    const queryResults = db.collection('categories').find({}, { categories: 0 });
+    queryResults.forEach((doc, err) => {
             resultArr.push(doc);
         },
         () => {
-            client.close();
+            res.render('index', { title: 'Online shop', results: resultArr, header: resultArr });
+            resultArr = [];
         });
-});
-
-
-module.exports = function routeIndex(req, res) {
-    res.render('index', { title: 'Online shop', results: resultArr, header: resultArr });
 };
