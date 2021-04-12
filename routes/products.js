@@ -9,12 +9,12 @@ module.exports = function routeIndex(req, res) {
     const db = req.app.locals.collection;
     queryResults = db.collection('products').find({ id: slicedId });
     const header = db.collection('categories').find({}, { categories: 0 })
-    header.forEach((doc, err) => {
-        headerArr.push(doc);
+    header.forEach((result, err) => {
+        headerArr.push(result);
     });
 
-    queryResults.forEach((doc, err) => {
-            resultArr.push(doc);
+    queryResults.forEach((result, err) => {
+            resultArr.push(result);
         },
         () => {
             res.render('products/products', { title: 'Suits', filters: ' ', results: resultArr, filterValues: null, header: headerArr });

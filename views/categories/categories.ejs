@@ -4,8 +4,8 @@
             <div class='container px-0 '>
                 <nav aria-label="breadcrumb ">
                     <ol class="breadcrumb bg-white px-0">
-                        <% results.forEach((test) => {             %>
-                            <% if(test.parent_category_id=="root" ){ %>
+                        <% results.forEach((breadCrumbItem) => {             %>
+                            <% if(breadCrumbItem.parent_category_id=="root" ){ %>
                                 <li class="breadcrumb-item active" aria-current="page">
                                     <a href="/">Home</a>
                                 </li>
@@ -14,14 +14,14 @@
                                         <a href="/">Home</a>
                                     </li>
                                     <li class="breadcrumb-item active" aria-current="page">
-                                        <a href="/categories/:<%=test.parent_category_id%>">
-                                            <% let name = test.parent_category_id.charAt(0).toUpperCase() + test.parent_category_id.slice(1) %>
+                                        <a href="/categories/:<%=breadCrumbItem.parent_category_id%>">
+                                            <% let name = breadCrumbItem.parent_category_id.charAt(0).toUpperCase() + breadCrumbItem.parent_category_id.slice(1) %>
                                                 <%=name%>
                                         </a>
                                     </li>
                                     <%  }%>
                                         <li class="breadcrumb-item active" aria-current="page">
-                                            <a href="/categories/:<%=test.id%>">
+                                            <a href="/categories/:<%=breadCrumbItem.id%>">
                                                 <%=test.name%>
                                             </a>
                                         </li>
@@ -32,15 +32,15 @@
         </div>
         <div class="container-fluid">
             <div class='container'>
-                <% results.forEach((test) => { %>
+                <% results.forEach((result) => { %>
                     <div class="row">
                         <div class="col-12">
                             <h3>
-                                <%=test.page_title%>
+                                <%=result.page_title%>
                             </h3>
                         </div>
                         <div class="col-12 pb-5">
-                            <%=test.page_description%>
+                            <%=result.page_description%>
                         </div>
                     </div>
                     <%});%>
@@ -48,8 +48,8 @@
         </div>
         <div class="container-fluid">
             <div class='container'>
-                <% results.forEach((test) => { %>
-                    <% test.categories.forEach((category) => { %>
+                <% results.forEach((pageResult) => { %>
+                    <% pageResult.categories.forEach((category) => { %>
                         <div class="card mb-3 border-dark rounded-lg">
                             <%if(category.image!=null) { %>
                                 <img class="card-img-top" src="/images/<%= category.image%>" alt="Card image cap">
@@ -61,12 +61,11 @@
                                         <p class="card-text">
                                             <%= category.page_description %>
                                         </p>
-                                        <%- console.log(category.hasOwnProperty('categories')) %>
-                                            <% if(category.hasOwnProperty('categories')) { %>
-                                                <a href="/categories/:<%= category.id%>" class="btn btn-primary">View more</a>
-                                                <% }else {%>
-                                                    <a href="/subcategories/:<%= category.id%>" class="btn btn-primary">View more</a>
-                                                    <%}%>
+                                        <% if(category.hasOwnProperty('categories')) { %>
+                                            <a href="/categories/:<%= category.id%>" class="btn btn-primary">View more</a>
+                                            <% }else {%>
+                                                <a href="/subcategories/:<%= category.id%>" class="btn btn-primary">View more</a>
+                                                <%}%>
                                     </div>
                         </div>
                         <%});%>

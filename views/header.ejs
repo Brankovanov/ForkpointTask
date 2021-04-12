@@ -23,31 +23,31 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mr-auto">
                         <% if(results.length>1 && results[0].primary_category_id=="root") { %>
-                            <% results.forEach((test) => {%>
+                            <% results.forEach((result) => {%>
                                 <li class="nav-item active font-weight-bold">
-                                    <a class="nav-link " href="/categories/:<%= test.id%>">
-                                        <%= test.name %>
+                                    <a class="nav-link " href="/categories/:<%= result.id%>">
+                                        <%= result.name %>
                                     </a>
                                 </li>
-                                <%   test.categories.forEach(element => { %>
+                                <%   result.categories.forEach(navItem => { %>
                                     <li class="nav-item active">
-                                        <a class="nav-link" href="/categories/:<%= element.id%>">
-                                            <%= element.name %>
+                                        <a class="nav-link" href="/categories/:<%= navItem.id%>">
+                                            <%= navItem.name %>
                                         </a>
                                     </li>
                                     <% });%>
                                         <%});%>
                                             <% } else{%>
-                                                <% header.forEach((test) => {%>
+                                                <% header.forEach((headerItem) => {%>
                                                     <li class="nav-item active font-weight-bold">
-                                                        <a class="nav-link" href="/categories/:<%= test.id%>">
-                                                            <%= test.name %>
+                                                        <a class="nav-link" href="/categories/:<%= headerItem.id%>">
+                                                            <%= headerItem.name %>
                                                         </a>
                                                     </li>
-                                                    <%   test.categories.forEach(element => { %>
+                                                    <%   headerItem.categories.forEach(navItem => { %>
                                                         <li class="nav-item active">
-                                                            <a class="nav-link" href="/categories/:<%= element.id%>">
-                                                                <%= element.name %>
+                                                            <a class="nav-link" href="/categories/:<%= navItem.id%>">
+                                                                <%= navItem.name %>
                                                             </a>
                                                         </li>
                                                         <% });%>

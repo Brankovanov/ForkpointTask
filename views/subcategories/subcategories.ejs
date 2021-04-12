@@ -8,10 +8,10 @@
                             <a href="/">Home</a>
                         </li>
                         <% results[0].primary_category_id
-                        .split('-').forEach(element => {%>
+                        .split('-').forEach(imgGroup => {%>
                             <li class="breadcrumb-item active" aria-current="page">
-                                <a href="/categories/:<%=element%>">
-                                    <% let name = element.charAt(0).toUpperCase() + element.slice(1) %>
+                                <a href="/categories/:<%=imgGroup%>">
+                                    <% let name = imgGroup.charAt(0).toUpperCase() + imgGroup.slice(1) %>
                                         <%=name%>
                                 </a>
                             </li>
@@ -23,18 +23,18 @@
         <div class="container-fluid">
             <div class="container">
                 <div class="row row-cols-1 row-cols-md-2">
-                    <% results.forEach((test) => { %>
+                    <% results.forEach((result) => { %>
                         <div class="col mb-4 ">
                             <div class="card border-dark rounded-lg h-100 d-inline-block pb-5">
                                 <div class="card-body h-100 d-inline-block">
                                     <h5 class="card-title h-25">
-                                        <%= test.name %>
+                                        <%= result.name %>
                                     </h5>
                                     <div class="row h-50">
                                         <div class="col-4">
-                                            <% for(let element of test.image_groups){ %>
-                                                <% for(let el of element.images){ %>
-                                                    <img class="card-img-top" src="/images/<%=el.link%>" alt="Card image cap">
+                                            <% for(let imgGroup of result.image_groups){ %>
+                                                <% for(let image of imgGroup.images){ %>
+                                                    <img class="card-img-top" src="/images/<%=image.link%>" alt="Card image cap">
                                                     <% break;%>
                                                         <% }%>
                                                             <% break;%>
@@ -42,17 +42,17 @@
                                         </div>
                                         <div class="col-8">
                                             <p>
-                                                <%= test.short_description %>
+                                                <%= result.short_description %>
                                             </p>
                                         </div>
                                     </div>
                                     <div class="row h-25 pt-5">
                                         <div class="col">
-                                            <%= test.price %>
-                                                <%= test.currency %>
+                                            <%= result.price %>
+                                                <%= result.currency %>
                                         </div>
                                         <div class="col d-flex justify-content-end">
-                                            <a href="/products/:<%= test.id%>" class="btn btn-primary">View more</a>
+                                            <a href="/products/:<%= result.id%>" class="btn btn-primary">View more</a>
                                         </div>
                                     </div>
                                 </div>

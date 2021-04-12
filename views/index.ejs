@@ -13,16 +13,16 @@
 
         <div class="container-fluid">
             <div class='container'>
-                <% results.forEach((test) => { %>
+                <% results.forEach((result) => { %>
                     <div class="card mb-3 border-dark rounded-lg">
                         <div class="card-body">
                             <h5 class="card-title">
-                                <%= test.page_title%>
+                                <%= result.page_title%>
                             </h5>
                             <p class="card-text">
-                                <%= test.page_description %>
+                                <%= result.page_description %>
                             </p>
-                            <a href="/categories/:<%= test.id%>" class="btn btn-primary">View more</a>
+                            <a href="/categories/:<%= result.id%>" class="btn btn-primary">View more</a>
                         </div>
                     </div>
                     <%});%>

@@ -8,14 +8,14 @@ module.exports = function routeIndex(req, res) {
 
     const db = req.app.locals.collection;
     const headerResults = db.collection('categories').find({}, { categories: 0 })
-    headerResults.forEach((doc, err) => {
-        headerArr.push(doc);
+    headerResults.forEach((result, err) => {
+        headerArr.push(result);
     });
 
     queryResults = db.collection('products').find({ primary_category_id: splitId });
 
-    queryResults.forEach((doc, err) => {
-            resultArr.push(doc);
+    queryResults.forEach((result, err) => {
+            resultArr.push(result);
         },
         () => {
             var name = resultArr[0].primary_category_id.replace(/-/g, " ");

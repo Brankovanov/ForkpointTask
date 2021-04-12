@@ -8,18 +8,18 @@ module.exports = function routeIndex(req, res) {
     let queryResults;
     const db = req.app.locals.collection;
     const header = db.collection('categories').find({}, { categories: 0 })
-    header.forEach((doc, err) => {
-        headerArr.push(doc);
+    header.forEach((result, err) => {
+        headerArr.push(result);
     });
     var checker;
     queryResults = db.collection('categories').find({ id: { $eq: splitId[0] } });
 
-    queryResults.forEach((doc, err) => {
-            if (doc.id === slicedId) {
-                resultArr.push(doc);
+    queryResults.forEach((result, err) => {
+            if (result.id === slicedId) {
+                resultArr.push(result);
                 checker = true;
             }
-            loop(doc, slicedId, checker)
+            loop(result, slicedId, checker)
         },
         () => {
             var name = resultArr[0].name;
